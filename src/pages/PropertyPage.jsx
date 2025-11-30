@@ -32,7 +32,7 @@ function PropertyPage() {
         style={{
           width: "100%",
           height: "350px",
-          backgroundImage: `url(${property.images[0]})`,
+          backgroundImage: `url(${import.meta.env.BASE_URL + property.images[0]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -94,7 +94,7 @@ function PropertyPage() {
               <h3>Floorplan</h3>
 
               <img
-                src={property.floorplan}
+                src={import.meta.env.BASE_URL + property.floorplan}
                 alt="Floorplan"
                 className="img-fluid mt-3"
                 style={{
@@ -119,7 +119,7 @@ function PropertyPage() {
                 {property.images.map((img, index) => (
                   <div className="col-6 col-md-4 mb-3" key={index}>
                     <img
-                      src={img}
+                      src={import.meta.env.BASE_URL + img}
                       className="img-fluid rounded shadow-sm"
                       style={{
                         height: "200px",

@@ -29,7 +29,7 @@ function PropertyCard({ property }) {
     >
       {/* IMAGE */}
       <img
-        src={property.images[0]}
+        src={import.meta.env.BASE_URL + property.images[0]}
         alt={property.title}
         style={{
           width: "100%",
