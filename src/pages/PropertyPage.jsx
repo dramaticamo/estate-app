@@ -28,6 +28,7 @@ function PropertyPage() {
     <div className="container-fluid p-0" style={{ background: "#fafafa" }}>
       {/* HERO IMAGE */}
       <div
+        className="property-hero mb-4"
         style={{
           width: "100%",
           height: "350px",
@@ -35,7 +36,6 @@ function PropertyPage() {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="mb-4"
       ></div>
 
       {/* CONTENT */}
@@ -144,14 +144,16 @@ function PropertyPage() {
             <div>
               <h3>Location Map</h3>
               <iframe
-                width="100%"
-                height="400"
-                className="mt-3"
-                style={{ border: 0, borderRadius: "8px" }}
-                loading="lazy"
-                allowFullScreen
-                src={`https://www.google.com/maps?q=${property.location.lat},${property.location.lng}&hl=en&z=14&output=embed`}
-              ></iframe>
+              width="100%"
+              height="400"
+              className="mt-3"
+              style={{ border: 0, borderRadius: "8px" }}
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; fullscreen"
+              referrerPolicy="no-referrer-when-downgrade"
+              sandbox="allow-scripts allow-same-origin allow-popups"
+              src={`https://www.google.com/maps?q=${property.location.lat},${property.location.lng}&hl=en&z=14&output=embed`}
+            ></iframe>
             </div>
           )}
         </div>

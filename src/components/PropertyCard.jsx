@@ -8,16 +8,16 @@ function PropertyCard({ property }) {
 
   const isFav = favourites.some((p) => p.id === property.id);
 
-  // DRAG — send property data
+  // DRAG — send property data to sidebar
   const handleDragStart = (e) => {
     e.dataTransfer.setData("property", JSON.stringify(property));
   };
 
   return (
     <div
+      className="property-card shadow-sm"
       draggable="true"
       onDragStart={handleDragStart}
-      className="shadow-sm"
       style={{
         borderRadius: "12px",
         overflow: "hidden",
@@ -38,12 +38,19 @@ function PropertyCard({ property }) {
         }}
       />
 
+      {/* CONTENT */}
       <div style={{ padding: "15px" }}>
         {/* TITLE */}
         <h5 className="fw-bold">{property.title}</h5>
 
         {/* SHORT DESCRIPTION */}
-        <p style={{ fontSize: "14px", color: "#555", minHeight: "45px" }}>
+        <p
+          style={{
+            fontSize: "14px",
+            color: "#555",
+            minHeight: "45px",
+          }}
+        >
           {property.shortDescription}
         </p>
 
@@ -62,8 +69,10 @@ function PropertyCard({ property }) {
 
         {/* BUTTONS */}
         <div className="d-flex gap-2 mt-3">
-
-          <Link to={`/property/${property.id}`} className="btn btn-primary btn-sm w-100">
+          <Link
+            to={`/property/${property.id}`}
+            className="btn btn-primary btn-sm w-100"
+          >
             View Details
           </Link>
 
@@ -82,7 +91,6 @@ function PropertyCard({ property }) {
               ❤️ Remove
             </button>
           )}
-
         </div>
       </div>
     </div>

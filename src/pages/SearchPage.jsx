@@ -30,7 +30,11 @@ function SearchPage() {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [postcode, setPostcode] = useState("");
-  const [dateAdded, setDateAdded] = useState(null);
+
+  // NEW date range states
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
   const [results, setResults] = useState([]);
   const [sortOption, setSortOption] = useState("");
 
@@ -58,31 +62,42 @@ function SearchPage() {
     if (bedrooms) filtered = filtered.filter((p) => p.bedrooms === parseInt(bedrooms));
     if (minPrice) filtered = filtered.filter((p) => p.price >= parseInt(minPrice));
     if (maxPrice) filtered = filtered.filter((p) => p.price <= parseInt(maxPrice));
+
     if (postcode)
       filtered = filtered.filter((p) =>
-        p.postcode.toLowerCase().includes(postcode.toLowerCase())
+        p.postcode.toLowerCase().includes(postcode.trim().toLowerCase())
       );
-    if (dateAdded)
-      filtered = filtered.filter((p) => new Date(p.dateAdded) >= dateAdded);
+
+    // NEW — date range filtering  
+    if (startDate)
+      filtered = filtered.filter(
+        (p) => new Date(p.dateAdded) >= startDate
+      );
+
+    if (endDate)
+      filtered = filtered.filter(
+        (p) => new Date(p.dateAdded) <= endDate
+      );
 
     setResults(filtered);
   }
 
+  /* -------------------- CLEAR FILTERS -------------------- */
   function clearFilters() {
     setType("");
     setBedrooms("");
     setMinPrice("");
     setMaxPrice("");
     setPostcode("");
-    setDateAdded(null);
+
+    setStartDate(null);
+    setEndDate(null);
+
     setResults([]);
     setSortOption("");
   }
 
-  /* -------------------------------------------------------------------
-     DRAG & DROP HANDLERS
-  ------------------------------------------------------------------- */
-
+  /* -------------------- Drag & Drop -------------------- */
   const handleDropAdd = (e) => {
     e.preventDefault();
     const data = JSON.parse(e.dataTransfer.getData("property"));
@@ -95,14 +110,13 @@ function SearchPage() {
 
   return (
     <div className="container-fluid p-0">
-
       <div className="row mx-0">
 
         {/* LEFT SIDE — SEARCH + RESULTS */}
         <div className="col-lg-8">
 
           {/* Showcase Images */}
-          <div className="row g-0">
+          <div className="row g-0 showcase-row">
             <div className="col-12 d-flex">
               <img src="/images/showcase1.jpg" className="img-fluid"
                 style={{ width: "33.33%", height: "300px", objectFit: "cover" }} />
@@ -123,10 +137,8 @@ function SearchPage() {
 
           {/* Search Form */}
           <div className="container py-5">
-
             <h1 className="text-center mb-4">Property Search</h1>
 
-            {/* Search Inputs */}
             <div className="row justify-content-center">
               <div className="col-12 col-md-6 col-lg-8">
 
@@ -148,7 +160,7 @@ function SearchPage() {
                   onChange={(selected) => setBedrooms(selected?.value || "")}
                 />
 
-                {/* Prices */}
+                {/* Min & Max Price */}
                 <label>Min Price:</label>
                 <input
                   type="number"
@@ -174,15 +186,25 @@ function SearchPage() {
                   onChange={(e) => setPostcode(e.target.value)}
                 />
 
-                {/* Date Added */}
-                <label className="fw-bold mb-1">Added After:</label>
-                <DatePicker
-                  selected={dateAdded}
-                  onChange={(date) => setDateAdded(date)}
-                  className="form-control mb-4"
-                  placeholderText="Select date"
-                  dateFormat="yyyy-MM-dd"
-                />
+                {/* NEW DATE RANGE */}
+                <label className="fw-bold mb-1">Date Added (Between):</label>
+                <div className="d-flex gap-2 mb-4">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    className="form-control"
+                    placeholderText="Start date"
+                    dateFormat="yyyy-MM-dd"
+                  />
+
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    className="form-control"
+                    placeholderText="End date"
+                    dateFormat="yyyy-MM-dd"
+                  />
+                </div>
 
                 <button className="btn btn-primary me-2" onClick={handleSearch}>
                   Search
@@ -210,8 +232,7 @@ function SearchPage() {
         </div>
 
         {/* RIGHT SIDE — FAVOURITES SIDEBAR */}
-        <div
-          className="col-lg-4 pt-4"
+        <div className="col-lg-4 pt-4"
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleDropAdd}
         >
@@ -257,9 +278,7 @@ function SearchPage() {
             )}
           </div>
         </div>
-
       </div>
-
     </div>
   );
 }
