@@ -1,0 +1,149 @@
+[
+  {
+    "id": 1,
+    "type": "house",
+    "price": 450000,
+    "bedrooms": 3,
+    "dateAdded": "2025-01-10",
+    "postcode": "NW1",
+    "title": "3-Bedroom Family House in NW1",
+    "shortDescription": "A spacious family house with a private garden.",
+    "longDescription": "This beautiful 3-bedroom home offers a bright living area, modern kitchen, private garden, and easy access to local amenities.",
+    "images": [
+      "/images/house1/img1.jpg",
+      "/images/house1/img2.jpg",
+      "/images/house1/img3.jpg",
+      "/images/house1/img4.jpg",
+      "/images/house1/img5.jpg",
+      "/images/house1/img6.jpg"
+    ],
+    "floorplan": "/images/house1/floorplan.jpg",
+    "location": { "lat": 51.535, "lng": -0.125 }
+  },
+  {
+    "id": 2,
+    "type": "flat",
+    "price": 300000,
+    "bedrooms": 2,
+    "dateAdded": "2025-02-01",
+    "postcode": "BR1",
+    "title": "Modern 2-Bedroom Flat in BR1",
+    "shortDescription": "A stylish city flat with balcony access.",
+    "longDescription": "This modern flat includes two bedrooms, open-plan living, balcony access, and proximity to transportation links.",
+    "images": [
+      "/images/flat1/img1.jpg",
+      "/images/flat1/img2.jpg",
+      "/images/flat1/img3.jpg",
+      "/images/flat1/img4.jpg",
+      "/images/flat1/img5.jpg",
+      "/images/flat1/img6.jpg"
+    ],
+    "floorplan": "/images/flat1/floorplan.jpg",
+    "location": { "lat": 51.408, "lng": -0.021 }
+  },
+  {
+    "id": 3,
+    "type": "house",
+    "price": 650000,
+    "bedrooms": 4,
+    "dateAdded": "2024-12-15",
+    "postcode": "SE1",
+    "title": "Large 4-Bedroom House in SE1",
+    "shortDescription": "Spacious home with a luxury interior.",
+    "longDescription": "Located in a desirable area, this 4-bedroom property offers generous space, high-end finishes, and a private driveway.",
+    "images": [
+      "/images/house2/img1.jpg",
+      "/images/house2/img2.jpg",
+      "/images/house2/img3.jpg",
+      "/images/house2/img4.jpg",
+      "/images/house2/img5.jpg",
+      "/images/house2/img6.jpg"
+    ],
+    "floorplan": "/images/house2/floorplan.jpg",
+    "location": { "lat": 51.504, "lng": -0.091 }
+  },
+  {
+    "id": 4,
+    "type": "flat",
+    "price": 220000,
+    "bedrooms": 1,
+    "dateAdded": "2025-01-02",
+    "postcode": "E14",
+    "title": "1-Bedroom Flat in Canary Wharf",
+    "shortDescription": "Perfect for students or professionals.",
+    "longDescription": "A compact but stylish flat ideal for young professionals, featuring modern appliances and on-site facilities.",
+    "images": [
+      "/images/flat2/img1.jpg",
+      "/images/flat2/img2.jpg",
+      "/images/flat2/img3.jpg",
+      "/images/flat2/img4.jpg",
+      "/images/flat2/img5.jpg",
+      "/images/flat2/img6.jpg"
+    ],
+    "floorplan": "/images/flat2/floorplan.jpg",
+    "location": { "lat": 51.505, "lng": -0.023 }
+  },
+  {
+    "id": 5,
+    "type": "house",
+    "price": 520000,
+    "bedrooms": 3,
+    "dateAdded": "2025-01-25",
+    "postcode": "W1",
+    "title": "3-Bedroom Detached House in W1",
+    "shortDescription": "A premium home in a central area.",
+    "longDescription": "This elegant detached home includes three bedrooms, high ceilings, and close access to major attractions.",
+    "images": [
+      "/images/house3/img1.jpg",
+      "/images/house3/img2.jpg",
+      "/images/house3/img3.jpg",
+      "/images/house3/img4.jpg",
+      "/images/house3/img5.jpg",
+      "/images/house3/img6.jpg"
+    ],
+    "floorplan": "/images/house3/floorplan.jpg",
+    "location": { "lat": 51.518, "lng": -0.139 }
+  },
+  {
+    "id": 6,
+    "type": "flat",
+    "price": 275000,
+    "bedrooms": 2,
+    "dateAdded": "2025-02-12",
+    "postcode": "N1",
+    "title": "Affordable 2-Bedroom Flat in N1",
+    "shortDescription": "Great value for a growing area.",
+    "longDescription": "A practical and affordable flat located near Islington, offering modern conveniences and good transport options.",
+    "images": [
+      "/images/flat3/img1.jpg",
+      "/images/flat3/img2.jpg",
+      "/images/flat3/img3.jpg",
+      "/images/flat3/img4.jpg",
+      "/images/flat3/img5.jpg",
+      "/images/flat3/img6.jpg"
+    ],
+    "floorplan": "/images/flat3/floorplan.jpg",
+    "location": { "lat": 51.538, "lng": -0.099 }
+  },
+  {
+    "id": 7,
+    "type": "house",
+    "price": 800000,
+    "bedrooms": 5,
+    "dateAdded": "2024-11-20",
+    "postcode": "SW3",
+    "title": "Luxury 5-Bedroom House in SW3",
+    "shortDescription": "High-end living in a sought-after location.",
+    "longDescription": "A stunning 5-bedroom luxury house with premium finishes, multiple bathrooms, and a landscaped garden.",
+    "images": [
+      "/images/house4/img1.jpg",
+      "/images/house4/img2.jpg",
+      "/images/house4/img3.jpg",
+      "/images/house4/img4.jpg",
+      "/images/house4/img5.jpg",
+      "/images/house4/img6.jpg"
+    ],
+    "floorplan": "/images/house4/floorplan.jpg",
+    "location": { "lat": 51.490, "lng": -0.167 }
+  }
+]
