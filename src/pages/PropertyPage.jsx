@@ -3,12 +3,22 @@ import { useParams, Link } from "react-router-dom";
 import propertiesData from "../data/properties.json";
 import { FavouritesContext } from "../context/FavouritesContext";
 
+// ⭐ Lightbox imports
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
 function PropertyPage() {
   const { id } = useParams();
   const property = propertiesData.find((p) => p.id === parseInt(id));
 
   const [activeTab, setActiveTab] = useState("description");
-  const { favourites, addFavourite, removeFavourite } = useContext(FavouritesContext);
+
+  // ⭐ Lightbox states
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const { favourites, addFavourite, removeFavourite } =
+    useContext(FavouritesContext);
 
   if (!property) return <h2>Property not found</h2>;
 
@@ -16,7 +26,6 @@ function PropertyPage() {
 
   return (
     <div className="container-fluid p-0" style={{ background: "#fafafa" }}>
-
       {/* HERO IMAGE */}
       <div
         style={{
@@ -31,17 +40,24 @@ function PropertyPage() {
 
       {/* CONTENT */}
       <div className="container pb-5">
+        <Link to="/" className="btn btn-secondary mb-3">
+          ← Back to Search
+        </Link>
 
-        <Link to="/" className="btn btn-secondary mb-3">← Back to Search</Link>
-
-        <h1 className="fw-bold" style={{ fontSize: "32px" }}>{property.title}</h1>
+        <h1 className="fw-bold" style={{ fontSize: "32px" }}>
+          {property.title}
+        </h1>
 
         <h3 style={{ color: "green", fontWeight: "700" }}>
           £{property.price.toLocaleString()}
         </h3>
 
-        <p><strong>Bedrooms:</strong> {property.bedrooms}</p>
-        <p><strong>Postcode:</strong> {property.postcode}</p>
+        <p>
+          <strong>Bedrooms:</strong> {property.bedrooms}
+        </p>
+        <p>
+          <strong>Postcode:</strong> {property.postcode}
+        </p>
 
         {/* TABS */}
         <ul className="nav nav-tabs mt-4 flex-wrap">
@@ -59,42 +75,46 @@ function PropertyPage() {
 
         {/* TAB CONTENT */}
         <div className="mt-4">
-
           {/* Description */}
           {activeTab === "description" && (
             <div>
               <h3>Description</h3>
-              <p className="mt-3" style={{ lineHeight: "1.7", fontSize: "18px" }}>
+              <p
+                className="mt-3"
+                style={{ lineHeight: "1.7", fontSize: "18px" }}
+              >
                 {property.longDescription}
               </p>
             </div>
           )}
 
+          {/* Floorplan */}
           {activeTab === "floorplan" && (
-          <div>
-            <h3>Floorplan</h3>
+            <div>
+              <h3>Floorplan</h3>
 
-            <img
-              src={property.floorplan}
-              alt="Floorplan"
-              className="img-fluid mt-3"
-              style={{
-                borderRadius: "10px",
-                maxHeight: "600px",
-                objectFit: "contain",
-                width: "100%",
-                background: "#fff",
-                padding: "10px",
-                border: "1px solid #ddd"
-              }}
-            />
-          </div>
-        )}
+              <img
+                src={property.floorplan}
+                alt="Floorplan"
+                className="img-fluid mt-3"
+                style={{
+                  borderRadius: "10px",
+                  maxHeight: "600px",
+                  objectFit: "contain",
+                  width: "100%",
+                  background: "#fff",
+                  padding: "10px",
+                  border: "1px solid #ddd",
+                }}
+              />
+            </div>
+          )}
 
           {/* Gallery */}
           {activeTab === "gallery" && (
             <div>
               <h3>Gallery</h3>
+
               <div className="row mt-3">
                 {property.images.map((img, index) => (
                   <div className="col-6 col-md-4 mb-3" key={index}>
@@ -105,8 +125,13 @@ function PropertyPage() {
                         height: "200px",
                         width: "100%",
                         objectFit: "cover",
+                        cursor: "pointer",
                       }}
                       alt=""
+                      onClick={() => {
+                        setLightboxIndex(index);
+                        setLightboxOpen(true);
+                      }}
                     />
                   </div>
                 ))}
@@ -130,6 +155,16 @@ function PropertyPage() {
             </div>
           )}
         </div>
+
+        {/* ⭐ LIGHTBOX COMPONENT */}
+        {lightboxOpen && (
+          <Lightbox
+            open={lightboxOpen}
+            close={() => setLightboxOpen(false)}
+            index={lightboxIndex}
+            slides={property.images.map((img) => ({ src: img }))}
+          />
+        )}
 
         {/* FAVOURITE BUTTON */}
         {isFav ? (
