@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useContext } from "react";
 import { FavouritesContext } from "./context/FavouritesContext";
 
@@ -14,38 +14,39 @@ function App() {
 
       {/* NAVBAR */}
       <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 mb-4 shadow-sm">
-      <a className="navbar-brand fw-bold" href="/">
-        🏠 Estate App
-      </a>
+        <Link className="navbar-brand fw-bold" to="/">
+          🏠 Estate App
+        </Link>
 
-      {/* Hamburger Button */}
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarMenu"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
+        {/* Hamburger Button */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-      {/* Collapsible Menu */}
-      <div className="collapse navbar-collapse" id="navbarMenu">
-        <ul className="navbar-nav ms-auto">
+        {/* Collapsible Menu */}
+        <div className="collapse navbar-collapse" id="navbarMenu">
+          <ul className="navbar-nav ms-auto">
 
-          <li className="nav-item">
-            <a className="nav-link" href="/">Search</a>
-          </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/" aria-label="Go to search page">Search</Link>
+            </li>
 
-          <li className="nav-item">
-            <a className="nav-link" href="/favourites">
-              ❤️ Favourites
-            </a>
-          </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/favourites" aria-label="Go to favourites page">
+                ❤️ Favourites
+              </Link>
+            </li>
 
-        </ul>
-      </div>
-    </nav>
+          </ul>
+        </div>
+      </nav>
 
+      {/* ROUTES */}
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="/property/:id" element={<PropertyPage />} />

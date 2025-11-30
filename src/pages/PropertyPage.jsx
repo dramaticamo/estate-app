@@ -95,7 +95,7 @@ function PropertyPage() {
 
               <img
                 src={import.meta.env.BASE_URL + property.floorplan}
-                alt="Floorplan"
+                alt={property.title + " floorplan"}
                 className="img-fluid mt-3"
                 style={{
                   borderRadius: "10px",
@@ -115,27 +115,27 @@ function PropertyPage() {
             <div>
               <h3>Gallery</h3>
 
-              <div className="row mt-3">
-                {property.images.map((img, index) => (
-                  <div className="col-6 col-md-4 mb-3" key={index}>
-                    <img
-                      src={import.meta.env.BASE_URL + img}
-                      className="img-fluid rounded shadow-sm"
-                      style={{
-                        height: "200px",
-                        width: "100%",
-                        objectFit: "cover",
-                        cursor: "pointer",
-                      }}
-                      alt=""
-                      onClick={() => {
-                        setLightboxIndex(index);
-                        setLightboxOpen(true);
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
+              <div className="row mt-3" role="list">
+              {property.images.map((img, index) => (
+                <div className="col-6 col-md-4 mb-3" key={index} role="listitem">
+                  <img
+                    src={import.meta.env.BASE_URL + img}
+                    className="img-fluid rounded shadow-sm"
+                    alt={property.title + " interior photo " + (index + 1)}
+                    style={{
+                      height: "200px",
+                      width: "100%",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setLightboxIndex(index);
+                      setLightboxOpen(true);
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
             </div>
           )}
 
@@ -164,7 +164,9 @@ function PropertyPage() {
             open={lightboxOpen}
             close={() => setLightboxOpen(false)}
             index={lightboxIndex}
-            slides={property.images.map((img) => ({ src: img }))}
+            slides={property.images.map((img) => ({
+            src: import.meta.env.BASE_URL + img,
+          }))}
           />
         )}
 

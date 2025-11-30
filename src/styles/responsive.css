@@ -2,33 +2,48 @@
    GLOBAL RESPONSIVENESS FIXES
 ================================ */
 
-/* Remove horizontal scrolling */
-body, html {
+/* Remove horizontal scroll */
+html, body {
   overflow-x: hidden;
 }
 
-/* Search page image row on mobile */
-.showcase-row img {
-  height: 180px !important;
+/* HERO BANNER — stack images on mobile */
+@media (max-width: 992px) {
+  .row.g-0 img {
+    width: 100% !important;
+    height: 180px !important;
+  }
 }
 
-@media (max-width: 768px) {
-  .showcase-row img {
+@media (max-width: 576px) {
+  .row.g-0 img {
     height: 140px !important;
   }
 }
 
-/* Favourites sidebar on mobile */
+/* ================================
+   SEARCH PAGE RESPONSIVE LAYOUT
+================================ */
+
+/* Force sidebar to drop below content */
 @media (max-width: 992px) {
   .favourites-sidebar {
-    margin-top: 20px;
+    margin-top: 25px;
   }
 }
 
-/* PropertyCard responsiveness */
-.property-card {
-  padding: 15px;
+/* Results grid — 1 column on phones */
+@media (max-width: 768px) {
+  .results-grid .col-md-6,
+  .results-grid .col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
+
+/* ================================
+   PROPERTY CARD
+================================ */
 
 .property-card img {
   height: 180px;
@@ -42,7 +57,10 @@ body, html {
   }
 }
 
-/* Property Page fixes */
+/* ================================
+   PROPERTY PAGE
+================================ */
+
 .property-hero {
   height: 320px !important;
 }
@@ -53,7 +71,22 @@ body, html {
   }
 }
 
-/* Lightbox arrows better on mobile */
+/* Lightbox buttons scale on mobile */
 .yarl__button {
   transform: scale(0.8);
+}
+
+/* Tabs spacing fix */
+@media (max-width: 576px) {
+  .nav-tabs .nav-link {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+}
+
+/* Gallery grid fix */
+@media (max-width: 768px) {
+  .gallery-item {
+    height: 150px !important;
+  }
 }

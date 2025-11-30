@@ -7,7 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FavouritesContext } from "../context/FavouritesContext";
 
 function SearchPage() {
-  const { favourites, addFavourite, clearFavourites } = useContext(FavouritesContext);
+  const { favourites, addFavourite, removeFavourite, clearFavourites } =
+    useContext(FavouritesContext);
 
   const [type, setType] = useState("");
   const [bedrooms, setBedrooms] = useState("");
@@ -49,23 +50,30 @@ function SearchPage() {
       sorted.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
 
     setResults(sorted);
-  }, [sortOption]);
+  }, [sortOption, results]);
 
   // FILTERING
   function handleSearch() {
     let filtered = propertiesData;
 
     if (type) filtered = filtered.filter((p) => p.type === type);
-    if (bedrooms) filtered = filtered.filter((p) => p.bedrooms === parseInt(bedrooms));
-    if (minPrice) filtered = filtered.filter((p) => p.price >= parseInt(minPrice));
-    if (maxPrice) filtered = filtered.filter((p) => p.price <= parseInt(maxPrice));
+    if (bedrooms)
+      filtered = filtered.filter((p) => p.bedrooms === parseInt(bedrooms));
+    if (minPrice)
+      filtered = filtered.filter((p) => p.price >= parseInt(minPrice));
+    if (maxPrice)
+      filtered = filtered.filter((p) => p.price <= parseInt(maxPrice));
     if (postcode)
       filtered = filtered.filter((p) =>
         p.postcode.toLowerCase().includes(postcode.trim().toLowerCase())
       );
 
-    if (startDate) filtered = filtered.filter((p) => new Date(p.dateAdded) >= startDate);
-    if (endDate) filtered = filtered.filter((p) => new Date(p.dateAdded) <= endDate);
+    if (startDate)
+      filtered = filtered.filter(
+        (p) => new Date(p.dateAdded) >= startDate
+      );
+    if (endDate)
+      filtered = filtered.filter((p) => new Date(p.dateAdded) <= endDate);
 
     setResults(filtered);
   }
@@ -83,43 +91,69 @@ function SearchPage() {
 
   return (
     <div className="container-fluid p-0" style={{ background: "#f5f7fa" }}>
-      {/* HERO BANNER */}
-      <div className="row g-0">
-        <img
-          src="/images/showcase1.jpg"
-          alt=""
-          style={{
-            width: "33.33%",
-            height: "260px",
-            objectFit: "cover",
-          }}
-        />
-        <img
-          src="/images/showcase2.jpg"
-          alt=""
-          style={{
-            width: "33.33%",
-            height: "260px",
-            objectFit: "cover",
-          }}
-        />
-        <img
-          src="/images/showcase3.jpg"
-          alt=""
-          style={{
-            width: "33.33%",
-            height: "260px",
-            objectFit: "cover",
-          }}
-        />
+      {/* HERO BANNER — Bootstrap Carousel */}
+    <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
+      <div className="carousel-inner">
+
+        <div className="carousel-item active">
+          <img
+            src={`${import.meta.env.BASE_URL}images/showcase1.jpg`}
+            className="d-block w-100"
+            style={{ height: "320px", objectFit: "cover" }}
+          />
+        </div>
+
+        <div className="carousel-item">
+          <img
+            src={`${import.meta.env.BASE_URL}images/showcase2.jpg`}
+            className="d-block w-100"
+            style={{ height: "320px", objectFit: "cover" }}
+          />
+        </div>
+
+        <div className="carousel-item">
+          <img
+            src={`${import.meta.env.BASE_URL}images/showcase3.jpg`}
+            className="d-block w-100"
+            style={{ height: "320px", objectFit: "cover" }}
+          />
+        </div>
+
       </div>
+
+      {/* Carousel Controls */}
+      <button
+        className="carousel-control-prev"
+        type="button"
+        data-bs-target="#heroCarousel"
+        data-bs-slide="prev"
+      >
+        <span className="carousel-control-prev-icon"></span>
+      </button>
+
+      <button
+        className="carousel-control-next"
+        type="button"
+        data-bs-target="#heroCarousel"
+        data-bs-slide="next"
+      >
+        <span className="carousel-control-next-icon"></span>
+      </button>
+    </div>
 
       {/* LUXURY BANNER */}
       <div className="py-4 text-center" style={{ background: "#fff" }}>
         <h2 className="fw-bold mb-2" style={{ fontSize: "32px" }}>
           Luxury Living
         </h2>
-        <p style={{ fontSize: "17px", color: "#555", maxWidth: "650px", margin: "0 auto" }}>
+        <p
+          style={{
+            fontSize: "17px",
+            color: "#555",
+            maxWidth: "650px",
+            margin: "0 auto",
+          }}
+        >
           Beautiful homes with modern interiors and vibrant community spaces.
         </p>
       </div>
@@ -129,7 +163,7 @@ function SearchPage() {
         <div className="col-lg-8 mb-4">
           {/* SEARCH BOX */}
           <div
-            className="p-4 mb-4"
+            className="search-box mb-4"
             style={{
               background: "#fff",
               borderRadius: "12px",
@@ -211,13 +245,31 @@ function SearchPage() {
             <button className="btn btn-primary me-2" onClick={handleSearch}>
               Search
             </button>
-            <button className="btn btn-outline-secondary" onClick={clearFilters}>
+            <button
+              className="btn btn-outline-secondary"
+              onClick={clearFilters}
+            >
               Clear
             </button>
           </div>
 
           {/* RESULTS */}
-          <h4 className="fw-bold mb-3">Results</h4>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h4 className="fw-bold">Results</h4>
+
+            <select
+              className="form-select w-auto"
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+            >
+              <option value="">Sort By</option>
+              <option value="priceLow">Price: Low → High</option>
+              <option value="priceHigh">Price: High → Low</option>
+              <option value="bedLow">Bedrooms: Fewest → Most</option>
+              <option value="bedHigh">Bedrooms: Most → Fewest</option>
+              <option value="newest">Newest Listings</option>
+            </select>
+          </div>
 
           <div className="row">
             {results.length === 0 ? (
@@ -234,7 +286,7 @@ function SearchPage() {
 
         {/* RIGHT SIDEBAR */}
         <div
-          className="col-lg-4"
+          className="col-lg-4 favourites-sidebar"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
             const data = JSON.parse(e.dataTransfer.getData("property"));
@@ -252,7 +304,10 @@ function SearchPage() {
           >
             <h4 className="fw-bold mb-3">⭐ Favourites</h4>
 
-            <button className="btn btn-sm btn-danger mb-3" onClick={clearFavourites}>
+            <button
+              className="btn btn-sm btn-danger mb-3"
+              onClick={clearFavourites}
+            >
               Clear All
             </button>
 
@@ -263,6 +318,11 @@ function SearchPage() {
                 <div
                   key={fav.id}
                   draggable
+                  role="button"
+                  aria-label={`Favourite property: ${fav.title}. Drag to remove`}
+                  onDragStart={(e) => {
+                    e.dataTransfer.setData("fav-id", fav.id);
+                  }}
                   className="p-3 mb-2"
                   style={{
                     background: "#f9f9f9",
@@ -277,6 +337,29 @@ function SearchPage() {
                 </div>
               ))
             )}
+          </div>
+
+          {/* TRASH ZONE */}
+          <div
+            role="region"
+            aria-label="Remove favourite by dropping item here"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              const id = e.dataTransfer.getData("fav-id");
+              if (id) removeFavourite(parseInt(id));
+            }}
+            style={{
+              marginTop: "15px",
+              padding: "15px",
+              textAlign: "center",
+              background: "#ffe5e5",
+              border: "2px dashed #ff4d4d",
+              borderRadius: "10px",
+              color: "#cc0000",
+              fontWeight: "bold",
+            }}
+          >
+            🗑️ Drag here to remove favourite
           </div>
         </div>
       </div>
