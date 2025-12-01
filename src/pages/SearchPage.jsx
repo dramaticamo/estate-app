@@ -10,6 +10,9 @@ function SearchPage() {
   const { favourites, addFavourite, removeFavourite, clearFavourites } =
     useContext(FavouritesContext);
 
+  // -------------------------
+  // FILTER STATES
+  // -------------------------
   const [type, setType] = useState("");
   const [bedrooms, setBedrooms] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -18,6 +21,9 @@ function SearchPage() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  // -------------------------
+  // RESULTS + SORTING
+  // -------------------------
   const [results, setResults] = useState([]);
   const [sortOption, setSortOption] = useState("");
 
@@ -36,11 +42,11 @@ function SearchPage() {
     { value: "5", label: "5" },
   ];
 
-  // SORTING
-  useEffect(() => {
-    if (results.length === 0) return;
-
-    let sorted = [...results];
+  // -------------------------
+  // SORT FUNCTION
+  // -------------------------
+  function applySorting(list) {
+    let sorted = [...list];
 
     if (sortOption === "priceLow") sorted.sort((a, b) => a.price - b.price);
     if (sortOption === "priceHigh") sorted.sort((a, b) => b.price - a.price);
@@ -49,10 +55,12 @@ function SearchPage() {
     if (sortOption === "newest")
       sorted.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
 
-    setResults(sorted);
-  }, [sortOption, results]);
+    return sorted;
+  }
 
-  // FILTERING
+  // -------------------------
+  // SEARCH / FILTER LOGIC
+  // -------------------------
   function handleSearch() {
     let filtered = propertiesData;
 
@@ -73,11 +81,28 @@ function SearchPage() {
         (p) => new Date(p.dateAdded) >= startDate
       );
     if (endDate)
-      filtered = filtered.filter((p) => new Date(p.dateAdded) <= endDate);
+      filtered = filtered.filter(
+        (p) => new Date(p.dateAdded) <= endDate
+      );
+
+    // ⭐ APPLY SORT
+    filtered = applySorting(filtered);
 
     setResults(filtered);
   }
 
+  // -------------------------
+  // RE-SORT WHEN sortOption CHANGES
+  // -------------------------
+  useEffect(() => {
+    if (results.length > 0) {
+      setResults(applySorting(results));
+    }
+  }, [sortOption]);
+
+  // -------------------------
+  // CLEAR FILTERS
+  // -------------------------
   function clearFilters() {
     setType("");
     setBedrooms("");
@@ -89,57 +114,58 @@ function SearchPage() {
     setResults([]);
   }
 
+  // ---------------------------------------------------------
+  // ------------------------- UI ----------------------------
+  // ---------------------------------------------------------
+
   return (
     <div className="container-fluid p-0" style={{ background: "#f5f7fa" }}>
-      {/* HERO BANNER — Bootstrap Carousel */}
-    <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
-      <div className="carousel-inner">
+      {/* HERO BANNER */}
+      <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img
+              src={`${import.meta.env.BASE_URL}images/showcase1.jpg`}
+              className="d-block w-100"
+              style={{ height: "320px", objectFit: "cover" }}
+            />
+          </div>
 
-        <div className="carousel-item active">
-          <img
-            src={`${import.meta.env.BASE_URL}images/showcase1.jpg`}
-            className="d-block w-100"
-            style={{ height: "320px", objectFit: "cover" }}
-          />
+          <div className="carousel-item">
+            <img
+              src={`${import.meta.env.BASE_URL}images/showcase2.jpg`}
+              className="d-block w-100"
+              style={{ height: "320px", objectFit: "cover" }}
+            />
+          </div>
+
+          <div className="carousel-item">
+            <img
+              src={`${import.meta.env.BASE_URL}images/showcase3.jpg`}
+              className="d-block w-100"
+              style={{ height: "320px", objectFit: "cover" }}
+            />
+          </div>
         </div>
 
-        <div className="carousel-item">
-          <img
-            src={`${import.meta.env.BASE_URL}images/showcase2.jpg`}
-            className="d-block w-100"
-            style={{ height: "320px", objectFit: "cover" }}
-          />
-        </div>
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="prev"
+        >
+          <span className="carousel-control-prev-icon"></span>
+        </button>
 
-        <div className="carousel-item">
-          <img
-            src={`${import.meta.env.BASE_URL}images/showcase3.jpg`}
-            className="d-block w-100"
-            style={{ height: "320px", objectFit: "cover" }}
-          />
-        </div>
-
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="next"
+        >
+          <span className="carousel-control-next-icon"></span>
+        </button>
       </div>
-
-      {/* Carousel Controls */}
-      <button
-        className="carousel-control-prev"
-        type="button"
-        data-bs-target="#heroCarousel"
-        data-bs-slide="prev"
-      >
-        <span className="carousel-control-prev-icon"></span>
-      </button>
-
-      <button
-        className="carousel-control-next"
-        type="button"
-        data-bs-target="#heroCarousel"
-        data-bs-slide="next"
-      >
-        <span className="carousel-control-next-icon"></span>
-      </button>
-    </div>
 
       {/* LUXURY BANNER */}
       <div className="py-4 text-center" style={{ background: "#fff" }}>
@@ -159,7 +185,7 @@ function SearchPage() {
       </div>
 
       <div className="row mx-0 mt-4 px-3">
-        {/* LEFT CONTENT */}
+        {/* LEFT SIDE */}
         <div className="col-lg-8 mb-4">
           {/* SEARCH BOX */}
           <div
@@ -172,6 +198,7 @@ function SearchPage() {
           >
             <h3 className="fw-bold mb-3">Property Search</h3>
 
+            {/* FILTER FORM */}
             <div className="row">
               <div className="col-md-6 mb-3">
                 <label className="fw-bold">Property Type</label>
@@ -242,6 +269,7 @@ function SearchPage() {
               </div>
             </div>
 
+            {/* BUTTONS */}
             <button className="btn btn-primary me-2" onClick={handleSearch}>
               Search
             </button>
@@ -284,7 +312,7 @@ function SearchPage() {
           </div>
         </div>
 
-        {/* RIGHT SIDEBAR */}
+        {/* RIGHT SIDE FAVOURITES */}
         <div
           className="col-lg-4 favourites-sidebar"
           onDragOver={(e) => e.preventDefault()}
