@@ -121,20 +121,48 @@ function SearchPage() {
   return (
     <div className="container-fluid p-0" style={{ background: "#f5f7fa" }}>
       {/* STATIC 3-IMAGE HERO SECTION */}
-      <div className="hero-showcase">
-        <img
-          src={`${import.meta.env.BASE_URL}images/showcase1.jpg`}
-          alt="Showcase 1"
-        />
-        <img
-          src={`${import.meta.env.BASE_URL}images/showcase2.jpg`}
-          alt="Showcase 2"
-        />
-        <img
-          src={`${import.meta.env.BASE_URL}images/showcase3.jpg`}
-          alt="Showcase 3"
-        />
-      </div>
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        gap: "10px",
+        padding: "0 12px",
+        marginBottom: "25px"
+      }}
+    >
+      <img
+        src={`${import.meta.env.BASE_URL}images/showcase1.jpg`}
+        alt="Showcase 1"
+        style={{
+          flex: 1,
+          height: "260px",
+          objectFit: "cover",
+          borderRadius: "12px",
+        }}
+      />
+
+      <img
+        src={`${import.meta.env.BASE_URL}images/showcase2.jpg`}
+        alt="Showcase 2"
+        style={{
+          flex: 1,
+          height: "260px",
+          objectFit: "cover",
+          borderRadius: "12px",
+        }}
+      />
+
+      <img
+        src={`${import.meta.env.BASE_URL}images/showcase3.jpg`}
+        alt="Showcase 3"
+        style={{
+          flex: 1,
+          height: "260px",
+          objectFit: "cover",
+          borderRadius: "12px",
+        }}
+      />
+    </div>
 
       {/* LUXURY BANNER */}
       <div className="py-4 text-center" style={{ background: "#fff" }}>
