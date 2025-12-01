@@ -81,14 +81,14 @@ function PropertyCard({ property }) {
               className="btn btn-outline-primary btn-sm w-100"
               onClick={() => addFavourite(property)}
             >
-              🤍 Fav
+              <i className="bi bi-heart me-1"></i> Fav
             </button>
           ) : (
             <button
               className="btn btn-danger btn-sm w-100"
               onClick={() => removeFavourite(property.id)}
             >
-              ❤️ Remove
+              <i className="bi bi-heart-fill me-1"></i> Remove
             </button>
           )}
         </div>

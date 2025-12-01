@@ -41,7 +41,7 @@ function PropertyPage() {
       {/* CONTENT */}
       <div className="container pb-5">
         <Link to="/" className="btn btn-secondary mb-3">
-          ← Back to Search
+          <i className="bi bi-arrow-left me-1"></i> Back to Search
         </Link>
 
         <h1 className="fw-bold" style={{ fontSize: "32px" }}>
@@ -176,14 +176,14 @@ function PropertyPage() {
             className="btn btn-danger mt-4"
             onClick={() => removeFavourite(property.id)}
           >
-            ❤️ Remove from Favourites
+            <i className="bi bi-heart-fill me-1"></i> Remove from Favourites
           </button>
         ) : (
           <button
             className="btn btn-primary mt-4"
             onClick={() => addFavourite(property)}
           >
-            🤍 Add to Favourites
+            <i className="bi bi-heart me-1"></i> Add to Favourites
           </button>
         )}
       </div>

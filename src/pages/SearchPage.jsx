@@ -120,51 +120,20 @@ function SearchPage() {
 
   return (
     <div className="container-fluid p-0" style={{ background: "#f5f7fa" }}>
-      {/* HERO BANNER */}
-      <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              src={`${import.meta.env.BASE_URL}images/showcase1.jpg`}
-              className="d-block w-100"
-              style={{ height: "320px", objectFit: "cover" }}
-            />
-          </div>
-
-          <div className="carousel-item">
-            <img
-              src={`${import.meta.env.BASE_URL}images/showcase2.jpg`}
-              className="d-block w-100"
-              style={{ height: "320px", objectFit: "cover" }}
-            />
-          </div>
-
-          <div className="carousel-item">
-            <img
-              src={`${import.meta.env.BASE_URL}images/showcase3.jpg`}
-              className="d-block w-100"
-              style={{ height: "320px", objectFit: "cover" }}
-            />
-          </div>
-        </div>
-
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide="prev"
-        >
-          <span className="carousel-control-prev-icon"></span>
-        </button>
-
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide="next"
-        >
-          <span className="carousel-control-next-icon"></span>
-        </button>
+      {/* STATIC 3-IMAGE HERO SECTION */}
+      <div className="hero-showcase">
+        <img
+          src={`${import.meta.env.BASE_URL}images/showcase1.jpg`}
+          alt="Showcase 1"
+        />
+        <img
+          src={`${import.meta.env.BASE_URL}images/showcase2.jpg`}
+          alt="Showcase 2"
+        />
+        <img
+          src={`${import.meta.env.BASE_URL}images/showcase3.jpg`}
+          alt="Showcase 3"
+        />
       </div>
 
       {/* LUXURY BANNER */}
@@ -330,7 +299,9 @@ function SearchPage() {
               minHeight: "380px",
             }}
           >
-            <h4 className="fw-bold mb-3">⭐ Favourites</h4>
+            <h4 className="fw-bold mb-3">
+              <i className="bi bi-star-fill me-1"></i> Favourites
+            </h4>
 
             <button
               className="btn btn-sm btn-danger mb-3"
@@ -377,17 +348,17 @@ function SearchPage() {
               if (id) removeFavourite(parseInt(id));
             }}
             style={{
-              marginTop: "15px",
-              padding: "15px",
-              textAlign: "center",
-              background: "#ffe5e5",
-              border: "2px dashed #ff4d4d",
-              borderRadius: "10px",
-              color: "#cc0000",
-              fontWeight: "bold",
-            }}
+            marginTop: "15px",
+            padding: "18px",
+            textAlign: "center",
+            background: "rgba(255, 80, 80, 0.1)",
+            border: "1px solid rgba(255, 80, 80, 0.3)",
+            borderRadius: "14px",
+            color: "#b00020",
+            fontWeight: "600",
+          }}
           >
-            🗑️ Drag here to remove favourite
+            <i className="bi bi-trash-fill me-1"></i> Drag here to remove favourite
           </div>
         </div>
       </div>

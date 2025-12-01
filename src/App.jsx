@@ -14,7 +14,7 @@ function App() {
       {/* NAVBAR */}
       <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 mb-4 shadow-sm">
         <Link className="navbar-brand fw-bold" to="/">
-          🏠 Estate App
+          <i className="bi bi-house-door-fill me-1"></i> Estate App
         </Link>
 
         <button
