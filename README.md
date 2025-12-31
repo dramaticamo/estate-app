@@ -120,4 +120,15 @@ Automated tests are written using **Vitest**.
 ```bash
 npm run test
 
+<<<<<<< HEAD
 ---
+=======
+### 🔗 GitHub Repository Deployment:
+The application is deployed using GitHub Pages.
+
+## GitHub Repository:
+https://github.com/dramaticamo/estate-app
+
+## 🌍 Live Application:
+https://dramaticamo.github.io/estate-app/
+>>>>>>> a30e2be34ce7332e1fffb5125ba28a08b58ddea1
