@@ -10,9 +10,7 @@ function SearchPage() {
   const { favourites, addFavourite, removeFavourite, clearFavourites } =
     useContext(FavouritesContext);
 
-  // -------------------------
-  // FILTER STATES
-  // -------------------------
+  // FILTER STATES  //
   const [type, setType] = useState("");
   const [bedrooms, setBedrooms] = useState("");
   const [minPrice, setMinPrice] = useState("");
