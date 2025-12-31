@@ -57,7 +57,6 @@ function SearchPage() {
     if (sortOption === "bedHigh") sorted.sort((a, b) => b.bedrooms - a.bedrooms);
     if (sortOption === "newest")
       sorted.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
-
     return sorted;
   }
 
@@ -65,34 +64,22 @@ function SearchPage() {
   // SEARCH / FILTER LOGIC
   // -------------------------
   function handleSearch() {
-    setHasSearched(true);
-    let filtered = propertiesData;
+  setHasSearched(true);
 
-    if (type) filtered = filtered.filter((p) => p.type === type);
-    if (bedrooms)
-      filtered = filtered.filter((p) => p.bedrooms === parseInt(bedrooms));
-    if (minPrice)
-      filtered = filtered.filter((p) => p.price >= parseInt(minPrice));
-    if (maxPrice)
-      filtered = filtered.filter((p) => p.price <= parseInt(maxPrice));
-    if (postcode)
-      filtered = filtered.filter((p) =>
-        p.postcode.toLowerCase().includes(postcode.trim().toLowerCase())
-      );
+  let filtered = propertiesData;
 
-    if (startDate)
-      filtered = filtered.filter(
-        (p) => new Date(p.dateAdded) >= startDate
-      );
-    if (endDate)
-      filtered = filtered.filter(
-        (p) => new Date(p.dateAdded) <= endDate
-      );
+  if (type) filtered = filtered.filter(p => p.type === type);
+  if (bedrooms) filtered = filtered.filter(p => p.bedrooms === parseInt(bedrooms));
+  if (minPrice) filtered = filtered.filter(p => p.price >= parseInt(minPrice));
+  if (maxPrice) filtered = filtered.filter(p => p.price <= parseInt(maxPrice));
+  if (postcode)
+    filtered = filtered.filter(p =>
+      p.postcode.toLowerCase().includes(postcode.toLowerCase())
+    );
 
-    // ⭐ APPLY SORT
-    filtered = applySorting(filtered);
-    setResults(filtered);
-  }
+  filtered = applySorting(filtered);
+  setResults(filtered);
+}
 
   // -------------------------
   // RE-SORT WHEN sortOption CHANGES

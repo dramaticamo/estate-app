@@ -4,6 +4,7 @@ import { FavouritesContext } from "./context/FavouritesContext";
 import SearchPage from "./pages/SearchPage";
 import PropertyPage from "./pages/PropertyPage";
 import FavouritesPage from "./pages/FavouritesPage";
+import { NavLink } from "react-router-dom";
 
 function App() {
   const { favourites } = useContext(FavouritesContext);
@@ -31,31 +32,17 @@ function App() {
 
         <div className="collapse navbar-collapse" id="navbarMenu">
           <ul className="navbar-nav ms-auto">
-
             <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/"
-                onClick={() => {
-                  document.getElementById("navbarMenu").classList.remove("show")
-                }}
-              >
-                Search
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link
-                className="nav-link"
+              <NavLink
+                className="nav-link fw-bold text-danger"
                 to="/favourites"
-                onClick={() => {
-                  document.getElementById("navbarMenu").classList.remove("show")
-                }}
+                onClick={() =>
+                  document.getElementById("navbarMenu")?.classList.remove("show")
+                }
               >
-                ❤️ Favourites
-              </Link>
+                ❤️ Favourites {favourites.length > 0 && `(${favourites.length})`}
+              </NavLink>
             </li>
-
           </ul>
         </div>
       </nav>
