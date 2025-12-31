@@ -26,6 +26,7 @@ function SearchPage() {
   // -------------------------
   const [results, setResults] = useState([]);
   const [sortOption, setSortOption] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
 
   const typeOptions = [
     { value: "", label: "Any" },
@@ -62,6 +63,7 @@ function SearchPage() {
   // SEARCH / FILTER LOGIC
   // -------------------------
   function handleSearch() {
+    setHasSearched(true);
     let filtered = propertiesData;
 
     if (type) filtered = filtered.filter((p) => p.type === type);
@@ -87,7 +89,6 @@ function SearchPage() {
 
     // ⭐ APPLY SORT
     filtered = applySorting(filtered);
-
     setResults(filtered);
   }
 
@@ -112,6 +113,7 @@ function SearchPage() {
     setStartDate(null);
     setEndDate(null);
     setResults([]);
+    setHasSearched(false);
   }
 
   // ---------------------------------------------------------
@@ -298,7 +300,15 @@ function SearchPage() {
 
           <div className="row">
             {results.length === 0 ? (
-              <p className="text-muted ms-2">No results yet. Try searching.</p>
+              hasSearched ? (
+              <p className="text-muted ms-2">
+                No properties match your search criteria.
+              </p>
+            ) : (
+              <p className="text-muted ms-2">
+                Use the filters above and click Search to see results.
+              </p>
+            )
             ) : (
               results.map((item) => (
                 <div className="col-md-6 col-lg-4 mb-4" key={item.id}>
