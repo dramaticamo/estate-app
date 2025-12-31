@@ -17,6 +17,8 @@ function SearchPage() {
   const [bedrooms, setBedrooms] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [minPriceDisplay, setMinPriceDisplay] = useState("");
+  const [maxPriceDisplay, setMaxPriceDisplay] = useState("");
   const [postcode, setPostcode] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -109,6 +111,8 @@ function SearchPage() {
     setBedrooms("");
     setMinPrice("");
     setMaxPrice("");
+    setMinPriceDisplay("");
+    setMaxPriceDisplay("");
     setPostcode("");
     setStartDate(null);
     setEndDate(null);
@@ -219,22 +223,38 @@ function SearchPage() {
 
               <div className="col-md-6 mb-3">
                 <label className="fw-bold">Min Price</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                />
+                <div className="input-group">
+                  <span className="input-group-text">£</span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="e.g. 100,000"
+                    value={minPriceDisplay}
+                    onChange={(e) => {
+                      const raw = e.target.value.replace(/[^0-9]/g, "");
+                      setMinPrice(raw);
+                      setMinPriceDisplay(raw ? Number(raw).toLocaleString() : "");
+                    }}
+                  />
+                </div>
               </div>
 
               <div className="col-md-6 mb-3">
                 <label className="fw-bold">Max Price</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                />
+                <div className="input-group">
+                  <span className="input-group-text">£</span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="e.g. 500,000"
+                    value={maxPriceDisplay}
+                    onChange={(e) => {
+                      const raw = e.target.value.replace(/[^0-9]/g, "");
+                      setMaxPrice(raw);
+                      setMaxPriceDisplay(raw ? Number(raw).toLocaleString() : "");
+                    }}
+                  />
+                </div>
               </div>
 
               <div className="col-md-6 mb-3">
@@ -282,7 +302,7 @@ function SearchPage() {
 
           {/* RESULTS */}
           <div className="d-flex justify-content-between align-items-center mb-3">
-            <h4 className="fw-bold">Results</h4>
+            <h4 className="fw-bold" aria-live="polite">Results</h4>
 
             <select
               className="form-select w-auto"
@@ -324,8 +344,14 @@ function SearchPage() {
           className="col-lg-4 favourites-sidebar"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
-            const data = JSON.parse(e.dataTransfer.getData("property"));
-            addFavourite(data);
+            try {
+              const data = JSON.parse(e.dataTransfer.getData("property"));
+              if (data && data.id) {
+                addFavourite(data);
+              }
+            } catch {
+              // ignore invalid drop data
+            }
           }}
         >
           <div

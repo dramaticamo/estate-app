@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FavouritesContext } from "../context/FavouritesContext";
 
+const FALLBACK_IMAGE = import.meta.env.BASE_URL + "images/showcase1.jpg";
+
 function PropertyCard({ property }) {
   const { favourites, addFavourite, removeFavourite } =
     useContext(FavouritesContext);
@@ -29,7 +31,11 @@ function PropertyCard({ property }) {
     >
       {/* IMAGE */}
       <img
-        src={import.meta.env.BASE_URL + property.images[0]}
+        src={
+              property.images && property.images.length > 0
+                ? import.meta.env.BASE_URL + property.images[0]
+                : FALLBACK_IMAGE
+            }
         alt={property.title}
         style={{
           width: "100%",
